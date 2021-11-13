@@ -1,0 +1,53 @@
+#include <Arduino.h>
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+int pin_home = 10;
+int pin_updown = 11;
+int pin_select = 12;
+
+int current_state_pin_home = LOW;
+int current_state_pin_updown = LOW;
+int current_state_pin_select = LOW;
+
+int prev_state_pin_home = LOW;
+int prev_state_pin_updown = LOW;
+int prev_state_pin_select = LOW;
+
+LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+void setup()
+{
+    Serial.begin(9600);
+
+    // put your setup code here, to run once:
+    lcd.init(); // initialize the lcd
+    lcd.backlight();
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Hello duc");
+
+    Serial.print("Hello");
+    pinMode(pin_home, INPUT_PULLUP);
+    pinMode(pin_updown, INPUT_PULLUP);
+    pinMode(pin_select, INPUT_PULLUP);
+}
+
+void read_state_pin(int pin)
+{
+    int val = digitalRead(pin);
+    Serial.println(val);
+}
+void loop()
+{
+    // put your main code here, to run repeatedly:
+    Serial.print("HOME: ");
+    read_state_pin(pin_home);
+    Serial.print("UPDOWN: ");
+    read_state_pin(pin_updown);
+    Serial.print("SELECT: ");
+    read_state_pin(pin_select);
+
+    delay(500);
+}

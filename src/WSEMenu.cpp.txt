@@ -1,0 +1,93 @@
+#include <iostream>
+#include "WSEMenu.h"
+#include "MenuScreen.h"
+#include "FeatureScreen.h"
+#include "FeatureScreenPage.h"
+WSEMenu wsem;
+
+void print_cam_bien_1()
+{
+	printf("Cam bien 1 la");
+}
+
+void print_cam_bien_2()
+{
+	printf("Cam bien 2 la");
+}
+
+void print_cam_bien_3()
+{
+	printf("Cam bien 3 la");
+}
+void print_cam_bien_4()
+{
+	printf("Cam bien 4 la");
+}
+void print_cam_bien_5()
+{
+	printf("Cam bien 5 la");
+}
+int main()
+{
+	IMenuFeature *builder;
+
+	MenuScreen menu_level_1 = MenuScreen("ROOT MENU", 1);
+
+	//level2
+	builder = &menu_level_1;
+	FeatureScreen feature_cam_bien = FeatureScreen("Cam bien", 2);
+	MenuScreen menu_cai_dat = MenuScreen("MENU cai dat", 2);
+	MenuScreen menu_dieukhien = MenuScreen("MENU Dieu khien", 2);
+
+	builder->addMenuItem("Cam bien", &feature_cam_bien)
+			->addMenuItem("Cai dat", &menu_cai_dat)
+			->addMenuItem("Dieu khien Relay", &menu_dieukhien);
+
+	builder = &feature_cam_bien;
+	builder->addMenuItem("Cam bien 1", new FeatureScreenPage(&print_cam_bien_1))
+			->addMenuItem("Cam bien 2", new FeatureScreenPage(&print_cam_bien_2))
+			->addMenuItem("Cam bien 3", new FeatureScreenPage(&print_cam_bien_3))
+			->addMenuItem("Cam bien 4", new FeatureScreenPage(&print_cam_bien_4))
+			->addMenuItem("Cam bien 5", new FeatureScreenPage(&print_cam_bien_5));
+
+	builder = &menu_cai_dat;
+	builder->addMenuItem("Cai dat 1", nullptr)
+			->addMenuItem("Cai dat 2", nullptr);
+
+	builder = &menu_dieukhien;
+	builder
+			->addMenuItem("DK bom", nullptr)
+			->addMenuItem("DK quat", nullptr)
+			->addMenuItem("DK nuoc", nullptr);
+	//End menu dieu khien
+
+	wsem.addRoot(&menu_level_1);
+
+	int selected = -1;
+	while (selected != '0')
+	{
+		wsem.render();
+
+		scanf("%d", &selected);
+		if (selected != 0)
+		{
+			printf("Input %d\n", selected);
+			if (selected == 1)
+			{
+				wsem.home();
+			}
+			else if (selected == 2)
+			{
+				wsem.down();
+			}
+			else if (selected == 3)
+			{
+				wsem.submit();
+			}
+		}
+
+		system("cls");
+	}
+
+	system("pause");
+}
