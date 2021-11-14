@@ -1,0 +1,25 @@
+{
+  "name": "WSEMenu",
+  "version": "1.0.1",
+  "description": "A library easy to manage state and create menu screen using LCD 20x4",
+  "keywords": "lcd,menu,licyle,hook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowdence/wsemenu.git"
+  },
+  "authors": [
+    {
+      "name": "Duc Tran Minh (snowdence)",
+      "email": "ductm@wifosoft.com",
+      "url": "http://github.com/snowdence",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/snowdence/wsemenu",
+  "dependencies": {
+    "marcoschwartz/LiquidCrystal_I2C": "^1.1.4"
+  },
+  "frameworks": "arduino",
+  "platforms": "atmelavr"
+}

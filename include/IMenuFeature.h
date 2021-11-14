@@ -23,8 +23,19 @@ public:
 	{
 		strncpy(this->title, title, 20);
 	}
-	virtual void down() = 0;
-	virtual IMenuFeature *submit() = 0;
+
+	virtual void home()
+	{
+		this->executeHookHomeBtnFunc();
+	};
+	virtual void down()
+	{
+		this->executeHookDownBtnFunc();
+	};
+	virtual IMenuFeature *ok()
+	{
+		this->executeHookOkBtnFunc();
+	};
 
 	IMenuFeature *addMenuItem(const char *title, IMenuFeature *menu_item)
 	{
@@ -88,6 +99,27 @@ public:
 			hookAfterRenderFunc();
 		}
 	}
+	virtual void executeHookHomeBtnFunc()
+	{
+		if (hookHomeBtnFunc != nullptr)
+		{
+			hookHomeBtnFunc();
+		}
+	}
+	virtual void executeHookOkBtnFunc()
+	{
+		if (hookOkBtnFunc != nullptr)
+		{
+			hookOkBtnFunc();
+		}
+	}
+	virtual void executeHookDownBtnFunc()
+	{
+		if (hookDownBtnFunc != nullptr)
+		{
+			hookDownBtnFunc();
+		}
+	}
 	//end execute licyle  hook
 	// set licyle hook
 	IMenuFeature *setHookInputFunc(void (*function)())
@@ -111,6 +143,25 @@ public:
 		hookAfterRenderFunc = function;
 		return this;
 	}
+
+	IMenuFeature *setHookHomeBtnFunc(void (*function)())
+	{
+		hookHomeBtnFunc = function;
+		return this;
+	}
+
+	IMenuFeature *setHookDownBtnFunc(void (*function)())
+	{
+		hookDownBtnFunc = function;
+		return this;
+	}
+
+	IMenuFeature *setHookOkBtnFunc(void (*function)())
+	{
+		hookOkBtnFunc = function;
+		return this;
+	}
+
 	// end set licyle hook
 
 protected:
@@ -123,6 +174,9 @@ protected:
 	void (*hookRenderFunc)() = nullptr;
 	void (*hookAfterRenderFunc)() = nullptr;
 
+	void (*hookHomeBtnFunc)() = nullptr;
+	void (*hookDownBtnFunc)() = nullptr;
+	void (*hookOkBtnFunc)() = nullptr;
 	struct MenuFeatureItem
 	{
 		char menu_item_title[18];

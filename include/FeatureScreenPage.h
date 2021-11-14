@@ -20,10 +20,13 @@ public:
 	void down() override
 	{
 		//do nothing
+		IMenuFeature::executeHookDownBtnFunc();
 	}
 
-	IMenuFeature *submit() override
+	IMenuFeature *ok() override
 	{
+		IMenuFeature::executeHookOkBtnFunc();
+
 		//do nothing
 		return this;
 	}

@@ -32,7 +32,10 @@ public:
 		lcd->print(this->current_selection + 1);
 		lcd->print("/");
 		lcd->print(this->getMenuFeatureItemCount());
-
+		if (this->getMenuFeatureItemCount() == 0)
+		{
+			return;
+		}
 		int start_idx = 0;
 		int end_idx_page = 0;
 		int row_cursor = 1;
@@ -60,9 +63,11 @@ public:
 			row_cursor += 1;
 		}
 	}
-
+	
 	void down() override
 	{
+		IMenuFeature::executeHookDownBtnFunc();
+
 		//down press to next
 		current_selection += 1;
 		if (current_selection >= this->getMenuFeatureItemCount())
@@ -70,8 +75,10 @@ public:
 			current_selection = 0;
 		}
 	}
-	IMenuFeature *submit() override
+	IMenuFeature *ok() override
 	{
+		IMenuFeature::executeHookOkBtnFunc();
+
 		return this->menuFeatureItemList[current_selection].menu_item_instance;
 	}
 

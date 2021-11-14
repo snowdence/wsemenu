@@ -18,6 +18,7 @@ public:
 	{
 		this->lcd = lcd;
 	}
+
 	void addRoot(IMenuFeature *root)
 	{
 		this->root = root;
@@ -58,7 +59,7 @@ public:
 	void submit()
 	{
 
-		this->current_item = this->current_item->submit();
+		this->current_item = this->current_item->ok();
 		needReRender = true;
 	}
 

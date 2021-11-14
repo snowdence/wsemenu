@@ -26,8 +26,10 @@ public:
 		}
 	}
 
-	IMenuFeature *submit() override
+	IMenuFeature *ok() override
 	{
+		((this->menuFeatureItemList[current_page].menu_item_instance))->executeHookOkBtnFunc();
+
 		return this;
 	}
 
