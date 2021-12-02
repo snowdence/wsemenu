@@ -35,6 +35,7 @@ public:
 	virtual IMenuFeature *ok()
 	{
 		this->executeHookOkBtnFunc();
+		return this;
 	};
 
 	IMenuFeature *addMenuItem(const char *title, IMenuFeature *menu_item)
@@ -99,26 +100,24 @@ public:
 			hookAfterRenderFunc();
 		}
 	}
+	virtual void hookDefaultFunc()
+	{
+		//donothing
+	}
 	virtual void executeHookHomeBtnFunc()
 	{
-		if (hookHomeBtnFunc != nullptr)
-		{
-			hookHomeBtnFunc();
-		}
+
+		(hookHomeBtnFunc != nullptr) ? hookHomeBtnFunc() : hookDefaultFunc();
 	}
 	virtual void executeHookOkBtnFunc()
 	{
-		if (hookOkBtnFunc != nullptr)
-		{
-			hookOkBtnFunc();
-		}
+		(hookOkBtnFunc != nullptr) ? hookOkBtnFunc() : hookDefaultFunc();
 	}
+
 	virtual void executeHookDownBtnFunc()
 	{
-		if (hookDownBtnFunc != nullptr)
-		{
-			hookDownBtnFunc();
-		}
+
+		(hookDownBtnFunc != nullptr) ? hookHomeBtnFunc() : hookDefaultFunc();
 	}
 	//end execute licyle  hook
 	// set licyle hook
